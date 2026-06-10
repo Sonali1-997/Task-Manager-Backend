@@ -16,7 +16,7 @@ const BCRYPT_ROUNDS = 10;
  * Domain service for the User aggregate. All user persistence goes through
  * here — no other module touches the User repository directly. This is the
  * seam along which the module can later be split into its own microservice:
- * the public methods below become the service contract (message patterns /
+ * the public methods below become the  service contract (message patterns /
  * gRPC methods) and callers depend on this interface, not the repository.
  */
 @Injectable()
