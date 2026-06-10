@@ -10,17 +10,17 @@ import { RowStatus } from '../../../common/enums';
 
 @Entity('tms_project')
 export class Project {
-  @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true, name: 'ProjectNo' })
+  @PrimaryGeneratedColumn({ type: 'bigint', name: 'ProjectNo' })
   projectNo: string;
 
-  @Column({ type: 'varchar', length: 150, name: 'Name' })
+  @Column({ type: 'nvarchar', length: 150, name: 'Name' })
   name: string;
 
-  @Column({ type: 'text', nullable: true, name: 'Description' })
+  @Column({ type: 'nvarchar', length: 'MAX', nullable: true, name: 'Description' })
   description: string | null;
 
   @Column({
-    type: 'enum',
+    type: 'simple-enum',
     enum: RowStatus,
     default: RowStatus.ACTIVE,
     name: 'Status',
@@ -28,7 +28,7 @@ export class Project {
   status: RowStatus;
 
   @Index('IX_project_createdby')
-  @Column({ type: 'bigint', unsigned: true, name: 'CreatedBy' })
+  @Column({ type: 'bigint', name: 'CreatedBy' })
   createdBy: string;
 
   @CreateDateColumn({ type: 'datetime', name: 'CreateDatetime' })

@@ -10,18 +10,18 @@ import { RowStatus, TaskPriority, TaskStatus } from '../../../common/enums';
 
 @Entity('tms_task')
 export class Task {
-  @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true, name: 'TaskNo' })
+  @PrimaryGeneratedColumn({ type: 'bigint', name: 'TaskNo' })
   taskNo: string;
 
-  @Column({ type: 'varchar', length: 200, name: 'Title' })
+  @Column({ type: 'nvarchar', length: 200, name: 'Title' })
   title: string;
 
-  @Column({ type: 'text', nullable: true, name: 'Description' })
+  @Column({ type: 'nvarchar', length: 'MAX', nullable: true, name: 'Description' })
   description: string | null;
 
   @Index('IX_task_status')
   @Column({
-    type: 'enum',
+    type: 'simple-enum',
     enum: TaskStatus,
     default: TaskStatus.TODO,
     name: 'TaskStatus',
@@ -29,7 +29,7 @@ export class Task {
   taskStatus: TaskStatus;
 
   @Column({
-    type: 'enum',
+    type: 'simple-enum',
     enum: TaskPriority,
     default: TaskPriority.MEDIUM,
     name: 'Priority',
@@ -40,22 +40,22 @@ export class Task {
   dueDate: string | null;
 
   @Index('IX_task_assignee')
-  @Column({ type: 'bigint', unsigned: true, nullable: true, name: 'AssignedUserNo' })
+  @Column({ type: 'bigint', nullable: true, name: 'AssignedUserNo' })
   assignedUserNo: string | null;
 
   @Index('IX_task_project')
-  @Column({ type: 'bigint', unsigned: true, name: 'ProjectNo' })
+  @Column({ type: 'bigint', name: 'ProjectNo' })
   projectNo: string;
 
   @Column({
-    type: 'enum',
+    type: 'simple-enum',
     enum: RowStatus,
     default: RowStatus.ACTIVE,
     name: 'Status',
   })
   status: RowStatus;
 
-  @Column({ type: 'bigint', unsigned: true, name: 'CreatedBy' })
+  @Column({ type: 'bigint', name: 'CreatedBy' })
   createdBy: string;
 
   @CreateDateColumn({ type: 'datetime', name: 'CreateDatetime' })
